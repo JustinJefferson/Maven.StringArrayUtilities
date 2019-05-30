@@ -1,5 +1,7 @@
 package com.zipcodewilmington;
 
+import java.util.Arrays;
+
 /**
  * Created by leon on 1/29/18.
  */
@@ -78,7 +80,21 @@ public class StringArrayUtils {
      * @return true if the order of the array is the same backwards and forwards
      */ // TODO
     public static boolean isPalindromic(String[] array) {
-        return false;
+
+        //Set up
+        String[] reversed = new String[array.length];
+        Integer count = array.length - 1;
+
+        // Reverse array
+        for(String string : array) {
+
+            reversed[count] = string;
+            count--;
+
+        }
+
+        //compare arrays and return
+        return Arrays.equals(array, reversed);
     }
 
     /**
@@ -86,6 +102,7 @@ public class StringArrayUtils {
      * @return true if each letter in the alphabet has been used in the array
      */ // TODO
     public static boolean isPangramic(String[] array) {
+
         return false;
     }
 
@@ -95,7 +112,15 @@ public class StringArrayUtils {
      * @return number of occurrences the specified `value` has occurred
      */ // TODO
     public static int getNumberOfOccurrences(String[] array, String value) {
-        return 0;
+        Integer count = 0;
+
+        for(String string : array) {
+
+            if(string.equals(value)) count++;
+
+        }
+
+        return count;
     }
 
     /**
@@ -104,7 +129,29 @@ public class StringArrayUtils {
      * @return array with identical contents excluding values of `value`
      */ // TODO
     public static String[] removeValue(String[] array, String valueToRemove) {
-        return null;
+
+        Integer count = 0;
+
+        for(String string : array) {
+
+            if(string.equals(valueToRemove)) count++;
+
+        }
+
+        String[] newArray = new String[array.length - count];
+
+        count = 0;
+
+        for(String string : array) {
+
+            if(!string.equals(valueToRemove)) {
+
+                newArray[count] = string;
+                count++;
+            }
+
+        }
+        return newArray;
     }
 
     /**
