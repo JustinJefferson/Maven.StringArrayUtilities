@@ -1,6 +1,7 @@
 package com.zipcodewilmington;
 
 import java.util.Arrays;
+import java.util.ArrayList;
 
 /**
  * Created by leon on 1/29/18.
@@ -103,7 +104,36 @@ public class StringArrayUtils {
      */ // TODO
     public static boolean isPangramic(String[] array) {
 
-        return false;
+        boolean result = true;
+
+        Character[] alphabet = new Character[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+
+        for(Character character : alphabet) {
+
+            boolean stillTrue = false;
+
+            for (String string : array) {
+
+                for(int i = 0; i < string.length(); i++) {
+
+                    if(character.equals(string.charAt(i))) stillTrue = true;
+
+                }
+
+            }
+
+            if (!stillTrue) {
+
+                result = false;
+                break;
+            }
+        }
+
+        //Loop through alphabet
+        //if a character isn't found then return false
+
+
+        return result;
     }
 
     /**
@@ -159,7 +189,33 @@ public class StringArrayUtils {
      * @return array of Strings with consecutive duplicates removes
      */ // TODO
     public static String[] removeConsecutiveDuplicates(String[] array) {
-        return null;
+
+        String[] noConsecutives = new String[0];
+        Integer count = 0;
+
+        for(String string : array) {
+
+            if((noConsecutives.length == 0) || (noConsecutives[count - 1] != string)) {
+
+                //Make a new array
+                String[] replace = new String[noConsecutives.length + 1];
+
+                //Copy array
+                for(int i = 0; i < noConsecutives.length; i++) {
+
+                    replace[i] = noConsecutives[i];
+                }
+
+                noConsecutives = replace;
+
+                // Set string to array
+                noConsecutives[count] = string;
+                count++;
+
+            }
+        }
+
+        return noConsecutives;
     }
 
     /**
@@ -167,7 +223,62 @@ public class StringArrayUtils {
      * @return array of Strings with each consecutive duplicate occurrence concatenated as a single string in an array of Strings
      */ // TODO
     public static String[] packConsecutiveDuplicates(String[] array) {
-        return null;
+
+        String[] packed = new String[0];
+        String lastString = "";
+        int index = 0;
+        int count = 0;
+
+        //Loop through array
+        for(String current : array) {
+
+
+            //see if current string matches previous
+            if(lastString.equals(current)) {
+
+                //if match ammend/concatonate
+                StringBuilder build = new StringBuilder(packed[index - 1]);
+                build.append(current);
+                packed[index - 1] = build.toString();
+
+            }
+            else {
+
+                // Increase array size
+                if(count < array.length) {
+
+                    String[] placeholder = new String[packed.length + 1];
+
+
+                    if(packed.length != 0) {
+                    int i = 0;
+                    for (String shuffle : packed) {
+
+                        placeholder[i] = packed[i];
+                        i++;
+                        }
+
+                    }
+
+                    packed = placeholder;
+
+                }
+                System.out.println(count);
+
+                System.out.println(Arrays.toString(packed));
+                //Add to array
+                packed[index] = current;
+                lastString = current;
+                index++;
+
+            }
+
+            count++;
+        }
+        System.out.println(packed.length);
+        System.out.println(Arrays.toString(packed));
+
+        return packed;
     }
 
 
